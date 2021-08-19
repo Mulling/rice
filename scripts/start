@@ -1,0 +1,22 @@
+#!/bin/sh
+# kill other scripts, if any
+for pid in $(pidof -x "$0"); do
+    [ "$pid" != $$ ] && kill -9 "$pid"
+done
+
+# TODO: move this to .xinitrc
+~/.fehbg 2> /dev/null &
+xset r rate 230 40 &
+setxkbmap -option ctrl:nocaps &
+
+# TODO: rewrite this thing in C, inside dwm without using xsetroot
+while true
+do
+    set -- $(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*\[(.*)\].*/\1\ \2/')
+    V=$([ "$2" = "off" ] && echo "\uFA80$1" || echo "\uFA7D$1")
+    D=$(date +"\uF133%d-%m-%Y  \uF017%H:%M")
+
+    xsetroot -name "$(printf '  %b  %b ' "$V" "$D")"
+
+    sleep 5s
+done &

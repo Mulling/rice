@@ -1,0 +1,109 @@
+--- config.def.h	2021-08-16 00:36:19.394660982 -0300
++++ config.h	2021-08-19 01:00:22.585550013 -0300
+@@ -5,17 +5,23 @@
+ static const unsigned int snap      = 32;       /* snap pixel */
+ static const int showbar            = 1;        /* 0 means no bar */
+ static const int topbar             = 1;        /* 0 means bottom bar */
+-static const char *fonts[]          = { "monospace:size=10" };
+-static const char dmenufont[]       = "monospace:size=10";
+-static const char col_gray1[]       = "#222222";
+-static const char col_gray2[]       = "#444444";
+-static const char col_gray3[]       = "#bbbbbb";
+-static const char col_gray4[]       = "#eeeeee";
+-static const char col_cyan[]        = "#005577";
+-static const char *colors[][3]      = {
++#ifdef USE_BITMAP
++// TODO: bitmap font
++#else
++static const char *fonts[]          = { "Monoid-9", "Monoid Nerd Font Mono-11" };
++static const char dmenufont[]       = "Monoid-9";
++#endif
++static const char col_gray1[]       = "#101010";
++static const char col_gray2[]       = "#1D1D1D";
++static const char col_gray3[]       = "#B4B6B8";
++static const char col_gray4[]       = "#D9DBDD";
++static const char col_cyan[]        = "#213040";
++#define SCHEME_SIZE 4
++static const char *colors[][SCHEME_SIZE]      = {
+     /*               fg         bg         border   */
+     [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+     [SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
++    [SchemeBar]  = { col_gray4, col_gray2, col_gray2 },
+ };
+ 
+ /* tagging */
+@@ -28,23 +34,22 @@
+      */
+     /* class      instance    title       tags mask     isfloating   monitor */
+     { "Gimp",     NULL,       NULL,       0,            1,           -1 },
+-    { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+ };
+ 
+ /* layout(s) */
+-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+-static const int nmaster     = 1;    /* number of clients in master area */
+-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
++static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
++static const int nmaster     = 1;   /* number of clients in master area */
++static const int resizehints = 0;   /* 1 means respect size hints in tiled resizals */
+ 
+ static const Layout layouts[] = {
+     /* symbol     arrange function */
+-    { "[]=",      tile },    /* first entry is default */
+-    { "><>",      NULL },    /* no layout function means floating behavior */
+-    { "[M]",      monocle },
++    { "=[]",      tile },    /* first entry is default */
++    { "[~]",      NULL },    /* no layout function means floating behavior */
++    { "[0]",      monocle },
+ };
+ 
+ /* key definitions */
+-#define MODKEY Mod1Mask
++#define MODKEY Mod4Mask
+ #define TAGKEYS(KEY,TAG) \
+     { MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+     { MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+@@ -56,20 +61,23 @@
+ 
+ /* commands */
+ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
++static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-p", "run:", NULL };
+ static const char *termcmd[]  = { "st", NULL };
++static const char *upvol[]    = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",     NULL };
++static const char *downvol[]  = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",     NULL };
++static const char *mutevol[]  = { "/usr/bin/pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle",  NULL };
+ 
+ static Key keys[] = {
+     /* modifier                     key        function        argument */
+-    { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
++    { MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+     { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+     { MODKEY,                       XK_b,      togglebar,      {0} },
+     { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+     { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+-    { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+-    { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+-    { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+-    { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
++//  { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
++//  { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
++    { MODKEY|ShiftMask,             XK_h,      setmfact,       {.f = +0.05} },
++    { MODKEY|ShiftMask,             XK_l,      setmfact,       {.f = -0.05} },
+     { MODKEY,                       XK_Return, zoom,           {0} },
+     { MODKEY,                       XK_Tab,    view,           {0} },
+     { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+@@ -94,6 +102,13 @@
+     TAGKEYS(                        XK_8,                      7)
+     TAGKEYS(                        XK_9,                      8)
+     { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
++#include <X11/XF86keysym.h>
++    { 0,         XF86XK_AudioLowerVolume,      spawn,          {.v = downvol } },
++    { 0,                XF86XK_AudioMute,      spawn,          {.v = mutevol } },
++    { 0,         XF86XK_AudioRaiseVolume,      spawn,          {.v = upvol   } },
++    { MODKEY,                       XK_Down,   spawn,          {.v = downvol } },
++    { MODKEY,                       XK_Right,  spawn,          {.v = mutevol } },
++    { MODKEY,                       XK_Up,     spawn,          {.v = upvol   } },
+ };
+ 
+ /* button definitions */

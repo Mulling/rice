@@ -1,0 +1,15 @@
+[user]
+    email    = lucas_mulling@hotmail.com
+    name     = Mulling
+    username = Mulling
+[core]
+    editor = nvim
+[alias]
+    tree = "!git log --graph --decorate --pretty=oneline --abbrev-commit"
+[credential]
+    helper = cache --timeout=3600
+[init]
+    defaultBranch = master
+[color "diff"]
+    old = 8
+    meta = 4
