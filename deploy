@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # stolen form tsoding
 
@@ -22,21 +22,21 @@ arr["$HOME/dots/.config/nvim/init.vim"]="$HOME/.config/nvim/init.vim"
 # neo vim colorscheme
 arr["$HOME/dots/.config/nvim/colors/based.vim"]="$HOME/.config/nvim/colors/based.vim"
 
-for key in ${!arr[@]}; do
+for key in "${!arr[@]}"; do
 
-    if [ ! -d $(dirname "${arr[${key}]}") ]; then
-        printf "\x1b[33m » mkdir $(dirname "${arr[${key}]}")"
-        mkdir -p $(dirname "${arr[${key}]}")
+    if [ ! -d "$(dirname "${arr[${key}]}")" ]; then
+        printf '%s' "\x1b[33m » mkdir $(dirname "${arr[${key}]}")"
+        mkdir -p "$(dirname "${arr[${key}]}")"
     fi
 
-    if [ ! -L ${arr[${key}]} ]; then
-        if [ -e ${arr[${key}]} ]; then
-            printf "\x1b[31m » \x1b[m${arr[${key}]} alredy exists, and its is not a syslink\n" && exit 1
+    if [ ! -L "${arr[${key}]}" ]; then
+        if [ -e "${arr[${key}]}" ]; then
+            printf '%s' "\x1b[31m » \x1b[m${arr[${key}]} alredy exists, and its is not a syslink\n" && exit 1
         else
-            ln -s ${key} ${arr[${key}]}
-            printf "\x1b[33m » \x1b[ln -s ${key} -> ${arr[${key}]}\n"
+            ln -s "${key}" "${arr[${key}]}"
+            printf '%s' "\x1b[33m » \x1b[ln -s ${key} -> ${arr[${key}]}\n"
         fi
     else
-        printf "\x1b[32m » \x1b[m${key} is already syslinked\n"
+        printf '%s' "\x1b[32m » \x1b[m${key} is already syslinked\n"
     fi
 done
