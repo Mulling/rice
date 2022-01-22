@@ -10,7 +10,7 @@
 
 (setq gc-cons-threshold most-positive-fixnum)
 
-(add-to-list 'default-frame-alist '(font . "Ubuntu Mono 12"))
+(add-to-list 'default-frame-alist '(font . "Monoid 9"))
 
 ;;; loading the theme makes emacs start faster for whatever reason
 (load-theme 'srcery t)
@@ -87,7 +87,7 @@
 (defalias 'wss   'window-swap-states)
 (defalias 'dap   'dired-at-point)
 
-;;; languyages ------------------------------------------------------------------
+;;; languages ------------------------------------------------------------------
 
 ;;; VHDL
 ;; (setq vhdl-basic-offset 4
@@ -167,7 +167,7 @@
 (setq display-line-numbers-type (if truncate-lines 'relative 'visual)
       display-line-numbers-width-start t)
 
-;;; hooks for language modes and other
+;;; hooks for language modes and others
 (mapc (lambda (p)
         (add-hook (car p)
                   (cdr p)))
@@ -193,7 +193,6 @@
         (c-mode-common-hook         . my-cc-mode-init)))
 
 ;;; global keybinds
-
 (defun my-keybinds ()
   (mapc (lambda (p)
         (global-set-key (kbd (car p)) (cdr p)))
@@ -213,8 +212,8 @@
         '(("C-x ," . ((arg) (interactive "p") 'enlarge-window))
           ("C-x ." . ((arg) (interactive "p") 'enlarge-window-horizontally))
           ("C-x o" . ((arg) (interactive "p") 'other-window))))
-        ;;; window manage
 
+        ;;; window manage
   (mapc (lambda (f)
           (advice-add f :after (lambda ()
                                  (interactive)
