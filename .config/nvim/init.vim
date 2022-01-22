@@ -7,7 +7,9 @@ let mapleader=" "
 
 noremap <leader><space> :b#<CR>
 noremap <leader>s :setlocal spell!<CR>
-noremap <leader>/ :setlocal hlsearch!<CR>
+noremap <leader>/ :grep<space>
+noremap <leader>n :bn<CR>
+noremap <leader>p :bp<CR>
 
 noremap Y y$
 
@@ -25,9 +27,9 @@ let g:pyindent_disable_parentheses_indenting = 1
 
 set autochdir ignorecase incsearch nowrap smartcase expandtab nohlsearch rnu lazyredraw title smartindent
 
-set sj=-50 tabstop=4 softtabstop=4 shiftwidth=4 fillchars+=vert:┃ shortmess=aoOtT laststatus=1 showtabline=0
+set sj=-50 tabstop=4 softtabstop=4 shiftwidth=4 fillchars+=vert:\| shortmess=aoOtT laststatus=1 showtabline=0 clipboard+=unnamedplus
 
-set grepprg=grep\ -in\ $*\ /dev/null\ 
+set grepprg=grep\ -rin\ $*\ /dev/null\ 
 
 aug UsrFiletype
     au!
@@ -47,6 +49,12 @@ aug END
 aug UsrTermOpen
     au!
     au TermOpen * setlocal nonu nornu
+aug END
+
+aug UsrSearch
+    autocmd!
+    autocmd CmdlineEnter /,\? set hlsearch
+    autocmd CmdlineLeave /,\? set nohlsearch
 aug END
 
 set statusline=\ %F\ %h%m%r\%=%-13.(%l,%c%V%)\ %P\ %<

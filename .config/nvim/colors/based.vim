@@ -6,6 +6,7 @@ if exists("syntax_on")
     syntax reset
 endif
 
+hi Function ctermfg=3
 hi Boolean ctermfg=5
 hi Comment ctermfg=8
 hi Constant ctermfg=2
@@ -32,7 +33,7 @@ hi PreProc ctermfg=3
 hi Question ctermfg=2
 hi QuickFixLine ctermbg=0
 hi Search ctermbg=none ctermfg=none cterm=reverse
-hi Special ctermfg=5
+hi Special ctermfg=6
 hi SpecialKey ctermfg=4
 hi SpellBad ctermbg=none cterm=underline
 hi SpellCap ctermbg=none cterm=underline
@@ -51,16 +52,14 @@ hi VertSplit ctermfg=0 cterm=none
 hi Visual ctermbg=none cterm=reverse
 hi WarningMsg ctermfg=1
 
-hi! link StatusLineTerm StatusLine
-hi! link StatusLineTermNC StatusLineNC
 hi! link Title PreProc
 hi! link diffAdded String
 hi! link diffRemoved Comment
 hi! link hsOperator Type
-hi! link makeTarget Special
+hi! link makeTarget PreProc
 hi! link pythonBuiltin Type
-hi! link pythonDecoratorName Special
-hi! link pythonFunction PreProc
 hi! link pythonOperator Keyword
-hi! link qfFileName Special
+hi! link qfFileName PreProc
 hi! link qfLineNr Keyword
+" emacs gets it right
+hi! link cConstant Normal

@@ -1,7 +1,7 @@
---- dwm.c	2021-08-16 17:55:23.934488958 -0300
-+++ ../../dwm/dwm.c	2021-08-16 17:56:36.419160863 -0300
+--- ../copy/dwm-6.3/dwm.c	2022-01-19 22:34:08.083522611 -0300
++++ dwm.c	2022-01-17 19:39:49.544069321 -0300
 @@ -59,7 +59,7 @@
- 
+
  /* enums */
  enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
 -enum { SchemeNorm, SchemeSel }; /* color schemes */
@@ -9,26 +9,63 @@
  enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
         NetWMFullscreen, NetActiveWindow, NetWMWindowType,
         NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
-@@ -730,7 +730,7 @@
- 
-     if ((w = m->ww - sw - x) > bh) {
+@@ -175,7 +175,7 @@
+ static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
+ static void grabbuttons(Client *c, int focused);
+ static void grabkeys(void);
+-static void incnmaster(const Arg *arg);
++/* static void incnmaster(const Arg *arg); */
+ static void keypress(XEvent *e);
+ static void killclient(const Arg *arg);
+ static void manage(Window w, XWindowAttributes *wa);
+@@ -734,7 +734,7 @@
+
+     if ((w = m->ww - tw - x) > bh) {
          if (m->sel) {
 -            drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
 +            drw_setscheme(drw, scheme[m == selmon ? SchemeBar : SchemeNorm]);
              drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
              if (m->sel->isfloating)
                  drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
-@@ -1687,11 +1687,11 @@
-     for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+@@ -967,12 +967,14 @@
+     }
+ }
+
++/* NOT USED
+ void
+ incnmaster(const Arg *arg)
+ {
+     selmon->nmaster = MAX(selmon->nmaster + arg->i, 0);
+     arrange(selmon);
+ }
++*/
+
+ #ifdef XINERAMA
+ static int
+@@ -1687,18 +1689,16 @@
+     if (n > m->nmaster)
+         mw = m->nmaster ? m->ww * m->mfact : 0;
+     else
+-        mw = m->ww;
+-    for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
++        mw = m->ww - gappx;
++    for (i = 0, my = ty = gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
          if (i < m->nmaster) {
-             h = (m->wh - my) / (MIN(n, m->nmaster) - i);
+-            h = (m->wh - my) / (MIN(n, m->nmaster) - i);
 -            resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
-+            resize(c, m->wx + m->ww - mw, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
-             my += HEIGHT(c);
+-            if (my + HEIGHT(c) < m->wh)
+-                my += HEIGHT(c);
++            h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gappx;
++            resize(c, m->wx + m->ww - mw, m->wy + my, mw - (2*c->bw) - gappx, h - (2*c->bw), 0);
++            my += HEIGHT(c) + gappx;
          } else {
-             h = (m->wh - ty) / (n - i);
+-            h = (m->wh - ty) / (n - i);
 -            resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
-+            resize(c, m->wx, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
-             ty += HEIGHT(c);
+-            if (ty + HEIGHT(c) < m->wh)
+-                ty += HEIGHT(c);
++            h = (m->wh - ty) / (n - i) - gappx;
++            resize(c, m->wx + gappx, m->wy + ty, m->ww - mw - (2 * c->bw) - 2 * gappx, h - (2*c->bw), 0);
++            ty += HEIGHT(c) + gappx;
          }
  }
+

@@ -1,5 +1,9 @@
 [[ $- != *i* ]] && return
 
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+    startx
+fi
+
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
 
 export PS1='\[\033[0;32m\]\W »\[\033[00m\] '
@@ -15,6 +19,9 @@ alias ls='ls --color=auto'
 alias more=less
 alias rm='rm -i'
 alias vim=nvim
+alias f=fg
+alias b=bg
+alias j=jobs
 
 case $TERM in
     st-256color)
@@ -29,9 +36,9 @@ shopt -s           \
     expand_aliases \
     histappend
 
-export                                   \
-    BROWSER=brave                        \
-    EDITOR=vim                           \
-    HISTCONTROL=ignoreboth               \
-    MANPAGER="less -R -Dd+g -Du+b -Dd+r" \
+export                             \
+    BROWSER=brave                  \
+    EDITOR=nvim                    \
+    HISTCONTROL=ignoreboth         \
+    MANPAGER="less -R -Dd+g -Dd+r" \
     TERMINAL=st

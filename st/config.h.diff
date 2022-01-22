@@ -1,27 +1,23 @@
---- config.def.h	2021-08-16 00:59:08.876663414 -0300
-+++ config.h	2021-08-19 00:55:09.256699562 -0300
-@@ -5,8 +5,12 @@
+--- ../copy/st-0.8.5/config.h	2022-01-19 22:36:50.953531218 -0300
++++ config.h	2022-01-18 02:59:22.650031215 -0300
+@@ -5,8 +5,8 @@
   *
   * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
   */
 -static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
 -static int borderpx = 2;
-+#ifdef BITMAPFONT
-+// TODO: bitmap font
-+#else
-+static char *font = "Monoid-9:antialias=true:autohint=auto";
-+#endif
-+static int borderpx = 8;
- 
++static char *font = "Monoid-9:antialias=true:hinting=true";
++static int borderpx = 4;
+
  /*
   * What program is execed by st depends of these precedence rules:
-@@ -91,45 +95,43 @@
+@@ -91,37 +91,33 @@
   *
   *  stty tabs
   */
 -unsigned int tabspaces = 8;
 +unsigned int tabspaces = 4;
- 
+
  /* Terminal colors (16 first used in escape sequence) */
  static const char *colorname[] = {
 -    /* 8 normal colors */
@@ -43,61 +39,47 @@
 -    "magenta",
 -    "cyan",
 -    "white",
--
--    [255] = 0,
--
++    /* modified gruvbox-dark-hark */
++    "#32302F",
++    "#D66E12", // D46D12
++    "#88B625",
++    "#EDB32D",
++    "#83A598",
++    "#D3869B",
++    "#8EC07C",
++    "#D8CBA5", // D5C4A1
++
++    "#756A60",
++    "#D66E12",
++    "#88B625",
++    "#EDB32D",
++    "#83A598",
++    "#D3869B",
++    "#8EC07C",
++    "#EBDBB2",
+
+     [255] = 0,
+
 -    /* more colors can be added after 255 to use with DefaultXX */
 -    "#cccccc",
 -    "#555555",
-+#if defined COLOR
-+    "#1D1D1D",
-+    "#C46848",
-+    "#599E4C",
-+    "#ADAF4F",
-+    "#5C87B4",
-+    "#956E91",
-+    "#39999A",
-+    "#B4B6B8", // B0B0B0
-+
-+    "#686E68",
-+    "#C46848",
-+    "#599E4C",
-+    "#ADAF4F",
-+    "#5C87B4",
-+    "#956E91",
-+    "#39999A",
-+    "#C9CACC", // CCCCCC
-+
+-    "gray90", /* default foreground colour */
+-    "black", /* default background colour */
 +    /* special colors */
-+    [256] = "#101010", /* background */
-+#elif defined MONO
-+    // TODO: monochrome colorscheme
-+#endif
++    [256] = "#1D2021", /* background */
  };
- 
--
- /*
+
+
+@@ -129,9 +125,9 @@
   * Default colors (colorname index)
   * foreground, background, cursor, reverse cursor
   */
- unsigned int defaultfg = 7;
--unsigned int defaultbg = 0;
--static unsigned int defaultcs = 256;
+-unsigned int defaultfg = 258;
+-unsigned int defaultbg = 259;
+-unsigned int defaultcs = 256;
++unsigned int defaultfg = 7;
 +unsigned int defaultbg = 256;
-+static unsigned int defaultcs  = 15;
++unsigned int defaultcs = 15;
  static unsigned int defaultrcs = 257;
- 
+
  /*
-@@ -191,9 +193,9 @@
-     { ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
-     { ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
-     { XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
--    { TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
--    { TERMMOD,              XK_Next,        zoom,           {.f = -1} },
--    { TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
-+    { TERMMOD,              XK_plus,        zoom,           {.f = +1} },
-+    { TERMMOD,              XK_underscore,  zoom,           {.f = -1} },
-+    { TERMMOD,              XK_parenright,  zoomreset,      {.f =  0} },
-     { TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
-     { TERMMOD,              XK_V,           clippaste,      {.i =  0} },
-     { TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
