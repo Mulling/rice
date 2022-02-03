@@ -1,3 +1,5 @@
+#!/bin/bash
+
 [[ $- != *i* ]] && return
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
@@ -8,7 +10,7 @@ fi
 
 export PS1='\[\033[0;32m\]\W »\[\033[00m\] '
 
-alias cp="cp -i"
+alias cp='cp -i'
 alias freq='watch -n 1 grep \"cpu MHz\" /proc/cpuinfo'
 alias df='df -h'
 alias free='free -m'
@@ -22,6 +24,7 @@ alias vim=nvim
 alias f=fg
 alias b=bg
 alias j=jobs
+alias feh='feh -.'
 
 case $TERM in
     st-256color)
@@ -36,9 +39,10 @@ shopt -s           \
     expand_aliases \
     histappend
 
-export                             \
-    BROWSER=brave                  \
-    EDITOR=nvim                    \
-    HISTCONTROL=ignoreboth         \
-    MANPAGER="less -R -Dd+g -Dd+r" \
+export                               \
+    BROWSER=brave                    \
+    EDITOR=nvim                      \
+    HISTCONTROL=ignoreboth           \
+    MANPAGER="less -R -Dd+g -Dd+r"   \
+    PATH="$PATH:$HOME/dots/scripts/" \
     TERMINAL=st

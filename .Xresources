@@ -1,5 +1,4 @@
 Xft.dpi:       96
-Xft.antalias:  1
-Xft.hinting:   1
-Xft.autohint:  0
+Xft.antalias:  true
+Xft.hinting:   true
 Xft.hintstyle: hintslight

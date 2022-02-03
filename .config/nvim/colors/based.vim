@@ -8,6 +8,8 @@ endif
 
 hi Function ctermfg=3
 hi Boolean ctermfg=5
+hi Number ctermfg=7
+hi Float ctermfg=7
 hi Comment ctermfg=8
 hi Constant ctermfg=2
 hi CursorLine ctermbg=0 cterm=none

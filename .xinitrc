@@ -7,10 +7,12 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
     unset f
 fi
 
-[[ -f $HOME/.Xresources ]] && xrdb -merge $HOME/.Xresources
+if [ -f "$HOME"/.Xresources ] ; then
+    xrdb -merge "$HOME"/.Xresources
+fi
 
-$HOME/dots/scripts/start
-$HOME/.fehbg 2> /dev/null
+"$HOME"/dots/scripts/start
+"$HOME"/.fehbg 2> /dev/null
 
 pulseaudio --start &
 
