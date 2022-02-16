@@ -11,8 +11,8 @@ fi
 export PS1='\[\033[0;32m\]\W »\[\033[00m\] '
 
 alias cp='cp -i'
-alias freq='watch -n 1 grep \"cpu MHz\" /proc/cpuinfo'
 alias df='df -h'
+alias feh='feh -.'
 alias free='free -m'
 alias grep='grep --color=auto'
 alias la='ls -a'
@@ -21,10 +21,6 @@ alias ls='ls --color=auto'
 alias more=less
 alias rm='rm -i'
 alias vim=nvim
-alias f=fg
-alias b=bg
-alias j=jobs
-alias feh='feh -.'
 
 case $TERM in
     st-256color)

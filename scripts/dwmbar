@@ -4,19 +4,17 @@ for pid in $(pidof -x "$0"); do
     [ "$pid" != $$ ] && kill -9 "$pid"
 done
 
-# xset r rate 220 50 &
-# setxkbmap -option ctrl:nocaps &
-
 # TODO: rewrite this thing in C, inside dwm without using xsetroot
 while true
 do
     set -- $(amixer get Master | tail -n1 | sed -r 's/.*\[(.*%)\].*\[(.*)\].*/\1\ \2/')
-    V=$([ "$2" = "off" ] && echo "婢$1" || echo "墳$1")
+    V=$([ "$2" = "off" ] && echo "ﱝ$1" || echo "墳$1")
     D=$(date +"%d-%m-%Y  %H:%M")
     B=$(cat "/sys/class/power_supply/BAT0/capacity")
-    B="$B%"
+    B="$B%"
     M=$(free | grep Mem | awk '{printf "%d%%", ($3/$2) * 100}')
-    L=$(light | awk '{printf "%d%%", $1}')
+    L=$(cat /sys/class/backlight/acpi_video0/brightness)
+    L="$L%"
 
     xsetroot -name "$(printf ' %b  %b  %b  %b  %b ' "$M" "$V" "$L" "$B" "$D")"
 

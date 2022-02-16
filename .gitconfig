@@ -11,5 +11,5 @@
 [init]
     defaultBranch = master
 [color "diff"]
-    old = 8
+    old  = 8
     meta = 4

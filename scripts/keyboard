@@ -1,9 +1,12 @@
 #!/bin/bash
 
-L=$(echo -e 'US\nBR' | dmenu -p "layout: " -fn "Monoid-9" -nb "#1D2021" -nf "#D8CBA5" -sb "#AF3A03" -sf "#EBDBB2")
+L=$(echo -e 'en.us\npt.br' | dmenu -p "layout: " -fn "Monoid-9" -nb "#1D2021" -nf "#D8CBA5" -sb "#AF3A03" -sf "#EBDBB2")
 
 case $L in
-    US) setxkbmap -layout us ;;
-    BR) setxkbmap -layout br -model thinkpad ;;
-    *) ;;
+    US)
+        setxkbmap -layout us
+    ;;
+    BR)
+        setxkbmap -layout br -model thinkpad
+    ;;
 esac

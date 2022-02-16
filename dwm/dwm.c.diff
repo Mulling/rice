@@ -1,5 +1,5 @@
 --- ../suckless/dwm-6.3/dwm.c	2022-02-02 22:49:17.251349848 -0300
-+++ dwm.c	2022-01-17 19:39:49.544069321 -0300
++++ dwm.c	2022-02-15 20:23:48.130555499 -0300
 @@ -59,7 +59,7 @@
 
  /* enums */
@@ -9,15 +9,6 @@
  enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
         NetWMFullscreen, NetActiveWindow, NetWMWindowType,
         NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
-@@ -175,7 +175,7 @@
- static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
- static void grabbuttons(Client *c, int focused);
- static void grabkeys(void);
--static void incnmaster(const Arg *arg);
-+/* static void incnmaster(const Arg *arg); */
- static void keypress(XEvent *e);
- static void killclient(const Arg *arg);
- static void manage(Window w, XWindowAttributes *wa);
 @@ -734,7 +734,7 @@
 
      if ((w = m->ww - tw - x) > bh) {
@@ -27,22 +18,7 @@
              drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
              if (m->sel->isfloating)
                  drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
-@@ -967,12 +967,14 @@
-     }
- }
-
-+/* NOT USED
- void
- incnmaster(const Arg *arg)
- {
-     selmon->nmaster = MAX(selmon->nmaster + arg->i, 0);
-     arrange(selmon);
- }
-+*/
-
- #ifdef XINERAMA
- static int
-@@ -1687,18 +1689,16 @@
+@@ -1687,18 +1687,16 @@
      if (n > m->nmaster)
          mw = m->nmaster ? m->ww * m->mfact : 0;
      else

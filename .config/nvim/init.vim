@@ -37,7 +37,7 @@ aug UsrFiletype
     au Filetype markdown setlocal wrap linebreak
     au Filetype text     setlocal wrap linebreak
     au Filetype c        setlocal complete+=i
-    au FIletype c++      setlocal complete+=i
+    au FIletype cpp      setlocal complete+=i
     au FIletype qf       setlocal nonu nornu
 aug END
 

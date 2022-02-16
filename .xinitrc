@@ -11,9 +11,9 @@ if [ -f "$HOME"/.Xresources ] ; then
     xrdb -merge "$HOME"/.Xresources
 fi
 
-"$HOME"/dots/scripts/start
-"$HOME"/.fehbg 2> /dev/null
-
 pulseaudio --start &
 
-exec dwm
+"$HOME"/dots/scripts/dwmbar 2>/dev/null
+"$HOME"/.fehbg 2>/dev/null
+
+exec dwm 2>/dev/null

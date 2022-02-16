@@ -1,1 +1,9 @@
 patches for dwm and st
+
+notes:
+
+exec /usr/bin/X -nolisten tcp -ardelay 220 -arinterval 20 "$@"
+
+Option "XkbOptions" "ctrl:nocaps"
+
+loglevel=3 quiet preempt=full acpi_backlight=video i915.enable_fbc=1 i915.enable_guc=2 intel_pstate=passive cpufreq.default_governor=schedutil
