@@ -3,10 +3,10 @@
 L=$(echo -e 'en.us\npt.br' | dmenu -p "layout: " -fn "Monoid-9" -nb "#1D2021" -nf "#D8CBA5" -sb "#AF3A03" -sf "#EBDBB2")
 
 case $L in
-    US)
+    en.us)
         setxkbmap -layout us
     ;;
-    BR)
+    pt.br)
         setxkbmap -layout br -model thinkpad
     ;;
 esac
