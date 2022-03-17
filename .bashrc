@@ -8,11 +8,16 @@ fi
 
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
 
-export PS1='\[\033[0;32m\]\W »\[\033[00m\] '
+if [[ ${EUID} == 0 ]] ; then
+    export PS1='\[\033[0;31m\][\h \[\033[0;32m\]\W\[\033[0;31m\]]#\[\033[00m\] '
+else
+    export PS1='\[\033[0;32m\]\W »\[\033[00m\] '
+fi
 
 alias cp='cp -i'
 alias df='df -h'
 alias feh='feh -.'
+alias fg=' fg'
 alias free='free -m'
 alias grep='grep --color=auto'
 alias la='ls -a'
@@ -24,7 +29,10 @@ alias vim=nvim
 
 case $TERM in
     st-256color)
-        PROMPT_COMMAND='echo -ne "\033]0;"${PWD/#$HOME/\~}" - ST\007"'
+        PROMPT_COMMAND='echo -ne "\033]0;"${PWD/#$HOME/\~}" - ST\007" && stty susp undef'
+    ;;
+    *)
+        PROMPT_COMMAND='stty susp undef'
     ;;
 esac
 
@@ -38,7 +46,12 @@ shopt -s           \
 export                               \
     BROWSER=brave                    \
     EDITOR=nvim                      \
+    ESPIDF=/opt/esp-idf              \
     HISTCONTROL=ignoreboth           \
     MANPAGER="less -R -Dd+g -Dd+r"   \
     PATH="$PATH:$HOME/dots/scripts/" \
+    PS0='$(stty susp ^z)'            \
     TERMINAL=st
+
+# hack
+bind '"\C-z":"fg\015"'
