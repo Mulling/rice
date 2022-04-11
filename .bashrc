@@ -11,17 +11,16 @@ fi
 if [[ ${EUID} == 0 ]] ; then
     export PS1='\[\033[0;31m\][\h \[\033[0;32m\]\W\[\033[0;31m\]]#\[\033[00m\] '
 else
-    export PS1='\[\033[0;32m\]\W »\[\033[00m\] '
+    export PS1='\[\033[1;30m\]`[ \j -gt 0 ] && echo [\j]\ `\[\033[0;32m\]\W »\[\033[00m\] '
 fi
 
 alias cp='cp -i'
 alias df='df -h'
 alias feh='feh -.'
-alias fg=' fg'
 alias free='free -m'
 alias grep='grep --color=auto'
 alias la='ls -a'
-alias ll='ls -lag --human-readable'
+alias ll='ls -lagh'
 alias ls='ls --color=auto'
 alias more=less
 alias rm='rm -i'
@@ -48,6 +47,7 @@ export                               \
     EDITOR=nvim                      \
     ESPIDF=/opt/esp-idf              \
     HISTCONTROL=ignoreboth           \
+    HISTIGNORE='fg'                  \
     MANPAGER="less -R -Dd+g -Dd+r"   \
     PATH="$PATH:$HOME/dots/scripts/" \
     PS0='$(stty susp ^z)'            \

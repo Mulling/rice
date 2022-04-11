@@ -5,17 +5,15 @@ set path+=**
 
 let mapleader=" "
 
-noremap <leader><space> :b#<CR>
-noremap <leader>s :setlocal spell!<CR>
 noremap <leader>/ :grep<space>
+noremap <leader><space> :b#<CR>
 noremap <leader>n :bn<CR>
 noremap <leader>p :bp<CR>
-
+noremap <leader>s :setlocal spell!<CR>
 noremap Y y$
 
 tnoremap <esc><esc> <c-\><c-n>
-
-command! -nargs=* T :belowright split | resize 10 | term <args>
+inoremap <C-o> <C-x><C-o>
 
 map <C-j> :cn<CR>
 map <C-k> :cp<CR>
@@ -27,7 +25,7 @@ let g:pyindent_disable_parentheses_indenting = 1
 
 set autochdir ignorecase incsearch nowrap smartcase expandtab nohlsearch rnu lazyredraw title smartindent
 
-set sj=-50 tabstop=4 softtabstop=4 shiftwidth=4 fillchars+=vert:\| shortmess=aoOtT laststatus=1 showtabline=0 clipboard+=unnamedplus
+set sj=-50 tabstop=4 softtabstop=4 shiftwidth=4 shortmess=aoOtT laststatus=1 showtabline=0 clipboard+=unnamedplus complete+=t completeopt=menu
 
 set grepprg=grep\ -rin\ $*\ /dev/null\ 
 
@@ -36,8 +34,8 @@ aug UsrFiletype
     au Filetype haskell  setlocal tabstop=2 softtabstop=2 shiftwidth=2
     au Filetype markdown setlocal wrap linebreak
     au Filetype text     setlocal wrap linebreak
-    au Filetype c        setlocal complete+=i
-    au FIletype cpp      setlocal complete+=i
+    " au Filetype c        setlocal complete+=i
+    " au FIletype cpp      setlocal complete+=i
     au FIletype qf       setlocal nonu nornu
 aug END
 

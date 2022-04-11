@@ -8,13 +8,13 @@ done
 while true
 do
     set -- $(amixer get Master | tail -n1 | sed -r 's/.*\[(.*%)\].*\[(.*)\].*/\1\ \2/')
-    V=$([ "$2" = "off" ] && echo "ﱝ$1" || echo "墳$1")
+    V=$([ "$2" = "off" ] && echo "OFF:$1" || echo "VOL:$1")
     D=$(date +"%d-%m-%Y  %H:%M")
     B=$(cat "/sys/class/power_supply/BAT0/capacity")
-    B="$B%"
-    M=$(free | grep Mem | awk '{printf "%d%%", ($3/$2) * 100}')
+    B="BAT:$B%"
+    M=$(free | grep Mem | awk '{printf "MEM:%d%%", ($3/$2) * 100}')
     L=$(cat /sys/class/backlight/acpi_video0/brightness)
-    L="$L%"
+    L="BRI:$L%"
 
     xsetroot -name "$(printf ' %b  %b  %b  %b  %b ' "$M" "$V" "$L" "$B" "$D")"
 
