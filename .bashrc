@@ -25,6 +25,8 @@ alias ls='ls --color=auto'
 alias more=less
 alias rm='rm -i'
 alias vim=nvim
+alias pingle='ping 8.8.8.8'
+alias idf='. /opt/esp-idf/export.sh'
 
 case $TERM in
     st-256color)

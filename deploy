@@ -22,11 +22,14 @@ arr["$HOME/dots/.xinitrc"]="$HOME/.xinitrc"
 # ghci
 # arr["$HOME/dots/.ghci"]="$HOME/.ghci"
 
-# neo vim init.vim
+# neo-vim init.vim
 arr["$HOME/dots/.config/nvim/init.vim"]="$HOME/.config/nvim/init.vim"
 
-# neo vim colorscheme
+# neo-vim colorscheme
 arr["$HOME/dots/.config/nvim/colors/based.vim"]="$HOME/.config/nvim/colors/based.vim"
+
+# tmux
+arr["$HOME/dots/.config/tmux/tmux.conf"]="$HOME/.config/tmux/tmux.conf"
 
 for key in "${!arr[@]}"; do
 

@@ -1,33 +1,36 @@
 filetype plugin indent on
 syntax on
 
-set path+=**
-
 let mapleader=" "
 
-noremap <leader>/ :grep<space>
-noremap <leader><space> :b#<CR>
-noremap <leader>n :bn<CR>
-noremap <leader>p :bp<CR>
-noremap <leader>s :setlocal spell!<CR>
+let mapleader=" "
+noremap <c-j> :cn<cr>
+noremap <c-k> :cp<cr>
+noremap <leader>/       :grep<space>
+noremap <leader><space> :b#<cr>
+noremap <leader>s       :setlocal spell!<cr>
 noremap Y y$
 
-tnoremap <esc><esc> <c-\><c-n>
-inoremap <C-o> <C-x><C-o>
+xnoremap < <gv
+xnoremap > >gv
+xnoremap = =gv
+xnoremap <leader>/ y:grep <c-r>"<space>
 
-map <C-j> :cn<CR>
-map <C-k> :cp<CR>
+cnoremap <a-b> <c-left>
+cnoremap <a-f> <c-right>
+
+tnoremap <esc><esc> <c-\><c-n>
+
+inoremap <c-o> <c-x><c-o>
 
 let g:loaded_python3_provider = 0
 let g:loaded_python_provider  = 0
 let g:netrw_banner = 0
 let g:pyindent_disable_parentheses_indenting = 1
 
-set autochdir ignorecase incsearch nowrap smartcase expandtab nohlsearch rnu lazyredraw title smartindent
+set autochdir expandtab ignorecase incsearch lazyredraw nohlsearch nowrap rnu smartcase smartindent title
 
-set sj=-50 tabstop=4 softtabstop=4 shiftwidth=4 shortmess=aoOtT laststatus=1 showtabline=0 clipboard+=unnamedplus complete+=t completeopt=menu
-
-set grepprg=grep\ -rin\ $*\ /dev/null\ 
+set clipboard+=unnamedplus complete+=t completeopt=menu fillchars+=vert:\| grepprg=grep\ -rin\ $*\ /dev/null\  laststatus=1 path+=** shiftwidth=4 shortmess=aoOtT showtabline=0 sj=-50 softtabstop=4 tabstop=4
 
 aug UsrFiletype
     au!
@@ -50,9 +53,9 @@ aug UsrTermOpen
 aug END
 
 aug UsrSearch
-    autocmd!
-    autocmd CmdlineEnter /,\? set hlsearch
-    autocmd CmdlineLeave /,\? set nohlsearch
+    au!
+    au CmdlineEnter /,\? set hlsearch
+    au CmdlineLeave /,\? set nohlsearch
 aug END
 
 set statusline=\ %F\ %h%m%r\%=%-13.(%l,%c%V%)\ %P\ %<
