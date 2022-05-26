@@ -1,0 +1,18 @@
+#!/bin/sh
+
+PDF_PATH="$HOME/downloads"
+
+LIST="$(find -L "$PDF_PATH" -maxdepth 1 -type f -name "*.pdf" | sed "s/.*\///" | sort)"
+
+SELECTED="$(echo "$LIST" | dmenu -p "mupdf:" -l 10 "-fn" "Consolas:pixelsize=15" -nb "#1D2021" -nf "#D6C9A4" -sb "#AF3A03" -sf "#EBDBB2")"
+
+open_pdf () {
+    SELECTED_PDF="$PDF_PATH/$SELECTED"
+    mupdf "$SELECTED_PDF"
+}
+
+if [ -n "$SELECTED" ]; then
+    open_pdf
+fi
+
+exit 0
