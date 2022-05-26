@@ -19,14 +19,15 @@ alias df='df -h'
 alias feh='feh -.'
 alias free='free -m'
 alias grep='grep --color=auto'
+alias idf='. /opt/esp-idf/export.sh'
 alias la='ls -a'
 alias ll='ls -lagh'
 alias ls='ls --color=auto'
 alias more=less
+alias mu=mupdf
+alias pingle='ping 8.8.8.8'
 alias rm='rm -i'
 alias vim=nvim
-alias pingle='ping 8.8.8.8'
-alias idf='. /opt/esp-idf/export.sh'
 
 case $TERM in
     st-256color)
