@@ -1,5 +1,5 @@
 --- ../suckless/dwm-6.3/config.h	2022-02-02 22:49:03.288015452 -0300
-+++ config.h	2022-04-03 21:31:55.920501805 -0300
++++ config.h	2022-05-29 23:51:20.166952107 -0300
 @@ -1,21 +1,24 @@
  /* See LICENSE file for copyright and license details. */
 
@@ -37,11 +37,12 @@
  };
 
  /* tagging */
-@@ -28,24 +31,23 @@
+@@ -28,24 +31,24 @@
       */
      /* class      instance    title       tags mask     isfloating   monitor */
      { "Gimp",     NULL,       NULL,       0,            1,           -1 },
 -    { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
++    { "Peek",     NULL,       NULL,       0,            1,           -1 },
  };
 
  /* layout(s) */
@@ -68,7 +69,7 @@
  #define TAGKEYS(KEY,TAG) \
      { MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
      { MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-@@ -57,20 +59,25 @@
+@@ -57,20 +60,26 @@
 
  /* commands */
  static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -79,6 +80,7 @@
 +static const char *upvol[]    = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",     NULL };
 +static const char *downvol[]  = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",     NULL };
 +static const char *mutevol[]  = { "/usr/bin/pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle",  NULL };
++static const char *openpdf[]  = { "/bin/bash", "-c", "dmenu-mupdf", NULL};
 +// static const char *briup[]    = { "/usr/bin/light", "-A", "1", NULL };
 +// static const char *bridown[]  = { "/usr/bin/light", "-U", "1", NULL };
 
@@ -101,7 +103,7 @@
      { MODKEY,                       XK_Return, zoom,           {0} },
      { MODKEY,                       XK_Tab,    view,           {0} },
      { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-@@ -95,6 +102,15 @@
+@@ -95,6 +104,16 @@
      TAGKEYS(                        XK_8,                      7)
      TAGKEYS(                        XK_9,                      8)
      { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
@@ -114,6 +116,7 @@
 +    { MODKEY,                       XK_Down,   spawn,          {.v = downvol } },
 +    { MODKEY,                       XK_Right,  spawn,          {.v = mutevol } },
 +    { MODKEY,                       XK_Up,     spawn,          {.v = upvol   } },
++    { MODKEY,                       XK_o,      spawn,          {.v = openpdf } },
  };
 
  /* button definitions */

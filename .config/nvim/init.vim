@@ -21,7 +21,7 @@ cnoremap <a-f> <c-right>
 
 tnoremap <esc><esc> <c-\><c-n>
 
-inoremap <c-o> <c-x><c-o>
+inoremap <c-space> <c-x><c-o>
 
 let g:loaded_python3_provider = 0
 let g:loaded_python_provider  = 0

@@ -52,7 +52,6 @@ export                               \
     HISTCONTROL=ignoreboth           \
     HISTIGNORE='fg'                  \
     MANPAGER="less -R -Dd+g -Dd+r"   \
-    PATH="$PATH:$HOME/dots/scripts/" \
     PS0='$(stty susp ^z)'            \
     TERMINAL=st
 

@@ -13,9 +13,11 @@ fi
 
 pulseaudio --start &
 
+export PATH="$PATH:$HOME/dots/scripts/"
+
 "$HOME"/.fehbg 2>/dev/null
 "$HOME"/dots/scripts/dwmbar 2>/dev/null
 
-xinput --disable 10
+xinput --disable 11
 
 exec dwm 2>/dev/null
