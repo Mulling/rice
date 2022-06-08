@@ -28,6 +28,7 @@ alias mu=mupdf
 alias pingle='ping 8.8.8.8'
 alias rm='rm -i'
 alias vim=nvim
+alias mpv='mpv --hwdec=auto'
 
 case $TERM in
     st-256color)
@@ -51,6 +52,7 @@ export                               \
     ESPIDF=/opt/esp-idf              \
     HISTCONTROL=ignoreboth           \
     HISTIGNORE='fg'                  \
+    LFS=/mnt/lfs                     \
     MANPAGER="less -R -Dd+g -Dd+r"   \
     PS0='$(stty susp ^z)'            \
     TERMINAL=st
