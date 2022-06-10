@@ -3,7 +3,6 @@ syntax on
 
 let mapleader=" "
 
-let mapleader=" "
 noremap <c-j> :cn<cr>
 noremap <c-k> :cp<cr>
 noremap <leader>/       :grep<space>

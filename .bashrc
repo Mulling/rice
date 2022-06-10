@@ -3,7 +3,7 @@
 [[ $- != *i* ]] && return
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    startx
+    startx 2>&1 1&>/dev/null
 fi
 
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
