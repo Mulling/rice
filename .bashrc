@@ -3,7 +3,7 @@
 [[ $- != *i* ]] && return
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    startx 2>&1 1&>/dev/null
+    exec startx 2>&1 1&>/dev/null
 fi
 
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
@@ -23,12 +23,14 @@ alias idf='. /opt/esp-idf/export.sh'
 alias la='ls -a'
 alias ll='ls -lagh'
 alias ls='ls --color=auto'
-alias more=less
+alias more='echo no more, use less'
 alias mu=mupdf
 alias pingle='ping 8.8.8.8'
 alias rm='rm -i'
 alias vim=nvim
 alias mpv='mpv --hwdec=auto'
+alias poweroff='loginctl poweroff'
+alias reboot='loginctl reboot'
 
 case $TERM in
     st-256color)
@@ -41,20 +43,21 @@ esac
 
 xhost +local:root > /dev/null 2>&1
 
-shopt -s           \
-    checkwinsize   \
+shopt -s \
+    checkwinsize \
     expand_aliases \
     histappend
 
-export                               \
-    BROWSER=brave                    \
-    EDITOR=nvim                      \
-    ESPIDF=/opt/esp-idf              \
-    HISTCONTROL=ignoreboth           \
-    HISTIGNORE='fg'                  \
-    LFS=/mnt/lfs                     \
-    MANPAGER="less -R -Dd+g -Dd+r"   \
-    PS0='$(stty susp ^z)'            \
+export \
+    BROWSER=brave \
+    EDITOR=nvim \
+    ESPIDF=/opt/esp-idf \
+    HISTCONTROL=ignoreboth \
+    HISTIGNORE='fg' \
+    LESSHISTFILE=/dev/null \
+    LFS=/mnt/lfs \
+    MANPAGER="less -R -Dd+g -Dd+r" \
+    PS0='$(stty susp ^z)' \
     TERMINAL=st
 
 # hack

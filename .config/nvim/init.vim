@@ -36,8 +36,8 @@ aug UsrFiletype
     au Filetype haskell  setlocal tabstop=2 softtabstop=2 shiftwidth=2
     au Filetype markdown setlocal wrap linebreak
     au Filetype text     setlocal wrap linebreak
-    " au Filetype c        setlocal complete+=i
-    " au FIletype cpp      setlocal complete+=i
+    au Filetype c        setlocal complete+=i
+    au FIletype cpp      setlocal complete+=i
     au FIletype qf       setlocal nonu nornu
 aug END
 
